@@ -6,34 +6,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Realtime Fetching From Normal Database</title>
     <style>
-        .container{
+        .container {
             max-width: 900px;
             font-family: sans-serif;
             margin: auto;
         }
-        h1{
+        h1 {
             text-align: center;
             margin-bottom: 30px;
         }
-        table{
+        table {
             width: 100%;
             border-spacing: 0px;
         }
         table th,
-        table td{
+        table td {
             padding: 15px 0px;
             border-bottom: 1px solid #cacaca;
             text-align: left;
         }
-        td:last-child{
+        td:last-child {
             width: 600px;
         }
     </style>
 </head>
 <body>
-    <!-- create table to show data -->
     <div class="container">
-        <h1>Realtime fetching From Normal Database</h1>
+        <h1>Realtime Fetching From Normal Database</h1>
         <table>
             <thead>
                 <tr>
@@ -46,24 +45,22 @@
             </tbody>
         </table>
     </div>
-    <!-- We will use SSE in JS to get event from server -->
-    <!-- for best performance in realtime fetching -->
-<script>
-    var source = new EventSource("fetch.php");
-    source.onmessage = function (event) {
-        var arrayData = JSON.parse(event.data);
-        var dataContainer = document.querySelector('tbody')
-        dataContainer.innerHTML = ''
-        arrayData.forEach(e => {
-            dataContainer.innerHTML += `
-                <tr>
-                    <td>${e.id}</td>
-                    <td>${e.name}</td>
-                    <td>${e.message}</td>
-                </tr>
-            `;
-        });
-    }
-</script>
+    <script>
+        var source = new EventSource("fetch.php");
+        source.onmessage = function (event) {
+            var arrayData = JSON.parse(event.data);
+            var dataContainer = document.querySelector('tbody');
+            dataContainer.innerHTML = '';
+            arrayData.forEach(e => {
+                dataContainer.innerHTML += `
+                    <tr>
+                        <td>${e.id}</td>
+                        <td>${e.name}</td>
+                        <td>${e.message}</td>
+                    </tr>
+                `;
+            });
+        };
+    </script>
 </body>
 </html>
